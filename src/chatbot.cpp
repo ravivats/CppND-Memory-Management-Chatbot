@@ -51,8 +51,9 @@ ChatBot::ChatBot(const ChatBot &source) // Copy constructor
     // Copy members
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-    _image = source._image; // Shallow copy
-
+    // _image = source._image; <<--- Instead of doing shallow copy like this
+    // wxBitmap() will help losing content from source when _image of this copy object gets changed or deleted
+    _image = new wxBitmap(*source._image);
 }
 
 ChatBot& ChatBot::operator=(const ChatBot &source) // Copy assignment
@@ -69,8 +70,9 @@ ChatBot& ChatBot::operator=(const ChatBot &source) // Copy assignment
     // Copy members
     _chatLogic = source._chatLogic;
     _rootNode = source._rootNode;
-    _image = source._image; // Shallow copy
-
+    // _image = source._image; <<--- Instead of doing shallow copy like this
+    // wxBitmap() will help losing content from source when _image of this copy object gets changed or deleted
+    _image = new wxBitmap(*source._image);
     return *this;
 }
 
